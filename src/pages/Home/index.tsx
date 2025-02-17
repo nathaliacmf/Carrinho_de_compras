@@ -1,14 +1,13 @@
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-
 import { Feather } from '@expo/vector-icons';
-
 import Products from '../../components/Products';
-
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import Cart from '../Cart';
+import { StackParamList } from '../../routes/stack.routes';
 
 export default function Home(){
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<StackParamList>>(); // Tipagem correta
     const [products, setProducts] = useState([
         {
             id: '1',

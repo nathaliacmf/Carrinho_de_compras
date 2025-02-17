@@ -1,6 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function Products({ data }) {
+    interface ProductData {
+    name: string;
+    price: number;
+    }
+  
+  export default function Products({ data }: { data: ProductData }) {
     
  return (
    <View style={styles.container}>
