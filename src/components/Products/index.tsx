@@ -1,11 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-    interface ProductData {
+interface ProductData {
     name: string;
     price: number;
-    }
-  
-  export default function Products({ data }: { data: ProductData }) {
+}
+
+interface ProductProps {
+    data: ProductData;
+    addToCart: () => void;
+}
+
+export default function Products({ data, addToCart }: ProductProps) {
     
  return (
    <View style={styles.container}>
@@ -13,7 +18,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
             <Text style={styles.title}>{data.name}</Text>
             <Text style={styles.price}>{data.price}</Text>
         </View>
-        <TouchableOpacity style={styles.buttonAdd}>
+        <TouchableOpacity style={styles.buttonAdd} onPress={addToCart}>
             <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
    </View>

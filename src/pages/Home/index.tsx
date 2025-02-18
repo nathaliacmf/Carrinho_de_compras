@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Feather } from '@expo/vector-icons';
 import Products from '../../components/Products';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import Cart from '../Cart';
 import { StackParamList } from '../../routes/stack.routes';
+import { CartContext } from '../../context/CartContext';
 
 export default function Home(){
+    const { cart, addItemCart } = useContext(CartContext);
     const navigation = useNavigation<NavigationProp<StackParamList>>(); // Tipagem correta
     const [products, setProducts] = useState([
         {
@@ -35,14 +36,30 @@ export default function Home(){
             price: 23.90
         },
     ])
+
+    type Product = {
+        id: string;
+        name: string;
+        price: number;
+    };
+    
+    function handleAddCart(item: Product) {
+        addItemCart(item);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.cartContent}>
-                <Text style={styles.title}>Lista de Produtos:</Text>
+                <Text style={styles.title}>Lista de Produtos</Text>
                 <TouchableOpacity style={styles.cartButton} onPress={ () => navigation.navigate("Cart") }>
-                    <View style={styles.dot}>
-                        <Text style={styles.dotText}>3</Text>
-                    </View>
+                    
+                    {cart.length >= 1 && (
+                        <View style={styles.dot}>
+                        <Text style={styles.dotText}>
+                            {cart?.length}
+                        </Text>
+                        </View>
+                    )}
                     <Feather name="shopping-cart" size={30} color="000"/>
                 </TouchableOpacity>
             </View>
@@ -50,7 +67,7 @@ export default function Home(){
                 style={styles.list}
                 data={products}
                 keyExtractor={ (item) => String(item.id) }
-                renderItem={ ({ item }) => <Products data={item}/>}
+                renderItem={ ({ item }) => <Products data={item} addToCart={ () => handleAddCart(item)}/>}
             />
         </SafeAreaView>
     );
