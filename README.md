@@ -1,5 +1,8 @@
 # Carrinho de compras
 
+## Video de demonstração
+https://youtube.com/shorts/T-JpaecyW6Y?si=hzg6eciPYn2MC5ce
+
 ## Como Usar
 
 1. Faça um clone do repositório
